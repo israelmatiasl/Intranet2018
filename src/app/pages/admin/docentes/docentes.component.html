@@ -1,0 +1,276 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Listado de docentes por filtro</h2>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary waves-effect waves-light pull-right" (click)="goAddTeacher()" type="button">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Nuevo Docente
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card card-outline-info">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Búsqueda</h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="searchTeacher(form)">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Filtro</label>
+                            <select [(ngModel)]="filter" name="filter" class="form-control custom-select" required>
+                                <option *ngFor="let item of filterSelect" [value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label *ngIf="filter=='username'">Código</label>
+                            <label *ngIf="filter=='psurname'">Apellido</label>
+                            <label *ngIf="filter=='document'">Documento</label>
+                            <input [(ngModel)]="word" name="word" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="cold-md-4">
+                        <div class="form-group m-t-30 m-l-10">
+                            <button type="submit" [disabled]="form.invalid" class="btn btn-inverse">Buscar</button>
+                            <button type="button" (click)="showAll()" [disabled]="!isSearched" class="btn btn-info">Mostrar todos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card card-outline-info animated fadeIn" *ngIf="isFounded">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="m-b-0 text-white">Docente : {{teacher.username}}</h4>
+            </div>
+            <div class="col-md-2">
+                <div class="pull-right">
+                    <a *ngIf="teacher.status != 'DELETED'" href="javascript:void(0)" [routerLink]="['/admin/docente/editar', teacher._id]" class="m-b-0 text-white">Editar</a>
+                    <a href="javascript:void(0)" (click)="closeDetail()" class="m-b-0 m-l-10 text-white">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-body">
+                <div class="row m-l-10">
+                    <div class="col-md-7">
+                        <h3 class="box-title">Información básica
+                            <span class="badge" [ngClass]="{'badge-success': teacher.status == 'ACTIVE', 
+                                                            'badge-warning': teacher.status == 'INACTIVE',
+                                                            'badge-danger': teacher.status == 'DELETED'}">
+                                {{teacher.status | status | uppercase}}
+                            </span>
+                        </h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Nombres :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.name}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Apellidos:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.psurname}} {{teacher.msurname}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Documento :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.document}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Cumpleaños :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.birthday | date:'dd/MM/yyyy' }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Teléfono :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.phone}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Celular :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.cell_phone}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Email :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.email}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Código :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.username}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-3">Dirección :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static text-left"> {{teacher.address}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Añadido en :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.created_at | date:'dd/MM/yyyy'}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Empezó en :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.hire_date | date:'dd/MM/yyyy'}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="box-title">Formación profesional</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Grado de formación :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.grade}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Carrera :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{teacher.career}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img [src]="teacher.image | image : teacher.gender : 'USER_TEACHER'" class="card-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card card-outline-info">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Docentes {{total_teachers}}</h4>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-5 offset-md-7">
+                        <div class="form-group row">
+                            <label class="col-sm-3 text-right control-label col-form-label">Estado :</label>
+                            <div class="col-sm-9">
+                                <select [(ngModel)]="status" name="status" (change)="changeStatus($event.target.value)" class="form-control custom-select" required>
+                                    <option *ngFor="let item of allStatus" [value]="item.id">{{item.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list footable-loaded footable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Código</th>
+                        <th>Document</th>
+                        <th>Email</th>
+                        <th>Celular</th>
+                        <th class="text-right p-r-40">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of teachers; let i = index" class="footable-even">
+                        <td><span class="footable-toggle"></span>{{(page-1)*items_page + (i+1)}}</td>
+                        <td>
+                            <a href="javascript:void(0)" (click)="showDetail(null, item.username)">
+                                <img [src]="item.image | image : item.gender : 'USER_TEACHER'" class="img-circle"> {{item.name}} {{item.psurname}}
+                            </a>
+                        </td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.document}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.cell_phone}}</td>
+                        <td class="text-right p-r-40">
+                            <button *ngIf="item.status != 'DELETED'" class="btn btn-outline-warning btn-sm" type="button" [routerLink]="['/admin/docente/editar', item._id]">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pull-right p-r-30">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button (click)="navigation(false, -1)" type="button" [disabled]="page<=1" class="btn waves-effect waves-light btn-inverse">Anterior</button>
+                    <button *ngFor="let i of total_pages|count" type="button" [disabled]="page == i" class="btn btn-secondary" (click)="navigation(true, i) ">{{i}}</button>
+                    <button (click)="navigation(false, 1)" type="button" [disabled]="total_pages<=page" class="btn waves-effect waves-light btn-inverse">Siguiente</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

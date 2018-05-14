@@ -1,0 +1,295 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="m-t-0">Adición de una nueva sección</h2>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right">
+                <button class="btn btn-warning waves-effect waves-light" (click)="goListSection()" type="button">
+                    <span class="btn-label"><i class="fa fa-arrow-left"></i></span>Regresar al listado
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="existsGrades">
+    <div class="col-md-9">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">{{titleForm}}</h4>
+            </div>
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="saveSection(form)" class="form-horizontal">
+                    <div class="form-body">
+                        <h3 class="box-title">Información de una sección</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de Sección</label>
+                                    <select [(ngModel)]="section.type" name="type" [disabled]="isEdit" class="form-control custom-select" required>
+                                        <option value="REGULAR">REGULAR</option>
+                                        <option value="VERANO">VERANO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Año para la sección</label>
+                                    <input [(ngModel)]="section.year" name="year" type="number" [disabled]="isEdit" class="form-control" style="text-transform:uppercase" placeholder="Ejm: 2018" required>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Grado</label>
+                                    <select [(ngModel)]="section.grade" name="grade" [disabled]="isEdit" (change)="changeGrade($event.target.value)" class="form-control custom-select" required>
+                                        <option value="">Seleccione un Grado</option>
+                                        <option *ngFor="let item of grades" [value]="item.name">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Año escolar</label>
+                                    <select [(ngModel)]="section.grade_year" name="grade_year" (change)="changeGradeYears($event.target.value)" [disabled]="isEdit || section.grade==''" class="form-control custom-select" required>
+                                        <option value="">Seleccione un año</option>
+                                        <option *ngFor="let item of years" [value]="item.name">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Letra</label>
+                                    <input [(ngModel)]="section.letter" name="letter" [disabled]="isEdit" type="text" class="form-control" style="text-transform:uppercase" placeholder="Ejm: A, B, C..." required>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Máximo de alumnos</label>
+                                    <input [(ngModel)]="section.max" name="max" type="number" class="form-control" placeholder="Máximo de alumnos a matricularse" required>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tutor</label>
+                                    <select class="form-control custom-select">
+                                        <option>Seleccione un tutor</option>
+                                        <option>Juan Perez</option>
+                                        <option>Rosa Alejo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Código de la sección</label>
+                                    <input [(ngModel)]="section.code" name="code" type="text" class="form-control" [readonly]="true">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-12 col-md-12">
+                                        <div class="pull-right" *ngIf="!isSaved">
+                                            <button type="submit" name="button" class="btn btn-inverse" [disabled]="loading || form.invalid">
+                                                <i class="fa" [ngClass]="{'fa-save':!loading, 'fa-refresh fa-spin':loading }"></i>
+                                                <span *ngIf="!loading">&nbsp;{{textSave}}</span>
+                                                <span *ngIf="loading">&nbsp;Espere por favor</span>
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" *ngIf="isSaved">
+                                            <button class="btn btn-inverse waves-effect waves-light" (click)="goAddSection()" type="button">
+                                                <span class="btn-label"><i class="fa fa-plus"></i></span>
+                                                <span>Nueva sección</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white">Tutor seleccionado</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="el-card-avatar el-overlay-1">
+                                <img src="assets/images/users/teacher/man-2.png" class="card-image">
+                            </div>
+                            <hr>
+                            <div class="el-card-content">
+                                <h3 class="text-center"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="showSectionsList">
+            <div class="col-md-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white">Secciones existentes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <button *ngFor="let item of sections" type="button" class="list-group-item">{{item.grade_year}} {{item.letter}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+    <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Agregar grados y años</h3>
+    Es necesario tener estos datos para continuar sin interrupciones. Por este medio usted puede agregar
+    <a href="javascript:void(0)" (click)="openFormGrade()">grados</a> y
+    <a href="javascript:void(0)" (click)="openFormGradeYear()">años</a>
+</div>
+
+<div class="animated fadeIn" *ngIf="showFormGrade">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-outline-info">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Nuevo Grado</h4>
+                </div>
+                <div class="card-body">
+                    <form #form="ngForm" (ngSubmit)="saveGrade(form)">
+                        <div class="row m-t-10">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre</label>
+                                        <input [(ngModel)]="grade.name" name="name" type="text" class="form-control" style="text-transform:uppercase" placeholder="Ejm: INCIAL, PRIMARIA, SECUNTARIA" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="m-t-30">
+                                    <button type="submit" name="button" class="btn btn-inverse" [disabled]="form.invalid">
+                                        <span class="btn-label"><i class="fa fa-save"></i></span>Guardar
+                                    </button>
+                                    <button class="btn btn-inverse waves-effect waves-light" type="button" (click)="showFormGrade=!showFormGrade">
+                                        <span class="btn-label"><i class="fa fa-close"></i></span>Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-outline-info animated fadeIn">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Grados</h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-body inbox-panel">
+                        <ul class="list-group list-group-full">
+                            <li *ngFor="let item of grades" class="list-group-item">{{item.name}} <a class="pull-right" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="animated fadeIn" *ngIf="showFormGradeYear">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-outline-info">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Nuevo Año</h4>
+                </div>
+                <div class="card-body">
+                    <form #form="ngForm" (ngSubmit)="saveGradeYear(form)">
+                        <div class="row m-t-10">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label">Grado</label>
+                                        <select [(ngModel)]="gradeYear.grade" (change)="changeGrade($event.target.value)" name="grade" class="form-control custom-select" required>
+                                            <option value="">Seleccione un Grado</option>
+                                            <option *ngFor="let item of grades" [value]="item.name">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre</label>
+                                        <input [(ngModel)]="gradeYear.name" name="name" type="text" class="form-control" style="text-transform:uppercase" placeholder="Ejm 5 AÑOS, 1RO PRIMARIA.." required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" name="button" class="btn btn-inverse" [disabled]="form.invalid">
+                                        <span class="btn-label"><i class="fa fa-save"></i></span>Guardar
+                                    </button>
+                                    <button class="btn btn-inverse waves-effect waves-light" type="button" (click)="showFormGradeYear=!showFormGradeYear">
+                                        <span class="btn-label"><i class="fa fa-close"></i></span>Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-outline-info animated fadeIn">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Años</h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-body inbox-panel" *ngIf="years">
+                        <ul class="list-group list-group-full">
+                            <li *ngFor="let item of years" class="list-group-item">{{item.name}} <a class="pull-right" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body inbox-panel" *ngIf="!years || years.length<1">
+                        <h3>No hay registros</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

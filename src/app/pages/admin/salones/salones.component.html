@@ -1,0 +1,116 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Listado y adición de salones</h2>
+        </div>
+        <div class="col-md-4">
+            <button *ngIf="!showForm" class="btn btn-primary waves-effect waves-light pull-right" type="button" (click)="openFormRoom()">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Nuevo salón
+            </button>
+            <button *ngIf="showForm" class="btn btn-inverse waves-effect waves-light pull-right" type="button" (click)="showForm=!showForm">
+                <span class="btn-label"><i class="fa fa-close"></i></span>Terminar
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card card-outline-info animated fadeIn" *ngIf="showForm">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">{{titleForm}}</h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="saveRoom(form)">
+            <div class="row m-t-10">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="control-label">Código del salón</label>
+                            <input [(ngModel)]="room.code" name="code" [disabled]="isEdit" type="text" class="form-control" placeholder="Código" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="control-label">Nombre del salón</label>
+                            <input [(ngModel)]="room.name" name="name" type="text" class="form-control" placeholder="Nombre" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="pull-right m-t-30">
+                        <button type="submit" name="button" class="btn btn-inverse" [disabled]="loading || form.invalid">
+                            <i class="fa" [ngClass]="{'fa-save':!loading, 'fa-refresh fa-spin':loading }"></i>
+                            <span *ngIf="!loading">&nbsp;{{textSave}}</span>
+                            <span *ngIf="loading">&nbsp;Espere por favor</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card card-inverse">
+    <div class="card-header bg-info">
+        <h4 class="m-b-0 text-white"><span *ngIf="rooms">{{total_rooms}} </span> Salones <span *ngIf="searching">- filtrado por : {{search}}</span> </h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="searchRoom()">
+            <div class="row m-t-10">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Filtro</label>
+                        <select [(ngModel)]="filter" name="filter" class="form-control custom-select" (change)="search=null">
+                            <option *ngFor="let item of filters" [value]="item.id">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label *ngIf="filter == 'code'">Código</label>
+                        <label *ngIf="filter == 'name'">Nombre</label>
+                        <input [(ngModel)]="search" name="search" type="text" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="m-t-30 m-l-10">
+                        <button type="submit" class="btn btn-inverse" [disabled]="form.invalid">Buscar</button>
+                        <button type="button" class="btn btn-info" [disabled]="!searching" (click)="getRooms()">Mostrar todos</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <div class="table-responsive">
+            <table class="table product-overview">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th class="text-right p-r-40">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of rooms; let i = index">
+                        <td>{{(page-1)*items_page + (i+1)}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.name}}</td>
+                        <td class="text-right p-r-40">
+                            <button class="btn btn-outline-warning" type="button" (click)="openFormRoom(item)"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-outline-danger" type="button" (click)="deleteRoom(item)"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pull-right p-r-30">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button (click)="navigation(false, -1)" type="button" [disabled]="page<=1" class="btn waves-effect waves-light btn-inverse">Anterior</button>
+                    <button *ngFor="let i of total_pages|count" type="button" [disabled]="page == i" class="btn btn-secondary" (click)="navigation(true, i) ">{{i}}</button>
+                    <button (click)="navigation(false, 1)" type="button" [disabled]="total_pages<=page" class="btn waves-effect waves-light btn-inverse">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

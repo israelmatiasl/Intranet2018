@@ -1,0 +1,163 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Listado y adición de noticias y eventos</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right">
+                <button class="btn btn-primary waves-effect waves-light" type="button">
+                  <span class="btn-label"><i class="fa fa-plus"></i></span>Nuevo
+              </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card card-outline-info">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Agregue un evento o una noticia</h4>
+    </div>
+    <div class="card-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#event" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Nuevo Evento</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#new" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Nueva Noticia</span></a> </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tabcontent-border">
+            <div class="tab-pane p-20 active" id="event" role="tabpanel">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <h3 class="box-title">Información del evento</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <img src="assets/images/background/img1.jpg" class="card-image-event">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea type="text" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha inicio</label>
+                                    <input type="text" class="form-control" id="dp1">
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha fin</label>
+                                    <input type="text" class="form-control" id="dp2">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Imagen</label>
+                                    <input type="file" class="form-control">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-12 col-md-12">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-warning">Cancelar</button>
+                                            <button type="submit" class="btn btn-inverse">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane p-20" id="new" role="tabpanel">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <h3 class="box-title">Información de la noticia</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <img src="assets/images/background/img2.jpg" class="card-image-event">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea type="text" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Imagen</label>
+                                    <input type="file" class="form-control">
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-12 col-md-12">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-warning">Cancelar</button>
+                                            <button type="submit" class="btn btn-inverse">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

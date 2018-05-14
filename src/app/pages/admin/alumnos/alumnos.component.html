@@ -1,0 +1,289 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Listado de alumnos por filtro</h2>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary waves-effect waves-light pull-right" (click)="goAddStudent()" type="button">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Nuevo Alumno
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card card-outline-info">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Búsqueda</h4>
+    </div>
+    <div class="card-body">
+        <form #form="ngForm" (ngSubmit)="searchStudent(form)">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Filtro</label>
+                            <select [(ngModel)]="filter" name="filter" class="form-control custom-select">
+                                <option *ngFor="let item of filterSelect" [value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'grade'" class="col-md-3">
+                        <div class="form-group">
+                            <label>Grado</label>
+                            <select [(ngModel)]="grade" name="grade" class="form-control custom-select">
+                                <option *ngFor="let item of gradeSelect" [value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'grade' && grade" class="col-md-3">
+                        <div class="form-group">
+                            <label>Año</label>
+                            <select [(ngModel)]="year" name="year" class="form-control custom-select">
+                                <option *ngFor="let item of yearSelect" [value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'grade' && grade && year" class="col-md-3">
+                        <div class="form-group">
+                            <label>Sección</label>
+                            <select [(ngModel)]="section" name="section" class="form-control custom-select">
+                                <option *ngFor="let item of sectionSelect" [value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'code'" class="col-md-3">
+                        <div class="form-group">
+                            <label>Código</label>
+                            <input ngModel name="code" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'lastname'" class="col-md-3">
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input ngModel name="lastname" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div *ngIf="filter == 'document'" class="col-md-3">
+                        <div class="form-group">
+                            <label>Documento</label>
+                            <input ngModel name="document" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="cold-md-3">
+                        <div class="form-group m-t-30 m-l-10">
+                            <button type="submit" class="btn btn-inverse">Buscar</button>
+                            <button type="button" class="btn btn-info">Mostrar todos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="card card-outline-info">
+    <div class="card-header">
+
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="m-b-0 text-white">Alumno : CA02852018</h4>
+            </div>
+            <div class="col-md-2">
+                <div class="pull-right">
+                    <a href="javascript:void(0)" class="m-b-0 text-white">Editar</a>
+                    <a href="javascript:void(0)" class="m-b-0 m-l-10 text-white">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-body">
+                <div class="row m-l-10">
+                    <div class="col-md-7">
+                        <h3 class="box-title">Información básica</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">First Name:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> John </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Last Name:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Doe </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Gender:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Male </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Date of Birth:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> 11/06/1987 </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Category:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Category1 </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Membership:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Free </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="box-title">Address</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Address:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> E104, Dharti-2, Near silverstar mall </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Country:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> India </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">City:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Bhavnagar </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">State:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> Gujarat </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-left col-md-6">Post Code:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> 457890 </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <h3 class="box-title">Imagen</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="assets/images/users/student/boy-2.png" class="card-image">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card card-outline-info">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Alumnos</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list footable-loaded footable" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th class="footable-sortable">ID #<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Opened By<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Cust. Email<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Sbuject<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Status<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Assign to<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Date<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Action<span class="footable-sort-indicator"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="footable-even">
+                        <td><span class="footable-toggle"></span>1011</td>
+                        <td>
+                            <a href="javascript:void(0)"><img src="assets/images/users/student/boy-2.png" alt="user" class="img-circle"> Ritesh Deshmukh</a>
+                        </td>
+                        <td>genelia@gmail.com</td>
+                        <td>How to customize the template?</td>
+                        <td><span class="label label-warning">New</span> </td>
+                        <td>Johnathon</td>
+                        <td>14-10-2017</td>
+                        <td>
+                            <button class="btn btn-outline-warning btn-sm" type="button" data-toggle="tooltip" data-original-title="Editar"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" type="button" data-toggle="tooltip" data-original-title="Eliminar"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="footable-odd">
+                        <td><span class="footable-toggle"></span>1224</td>
+                        <td>
+                            <a href="javascript:void(0)"><img src="assets/images/users/student/girl-2.png" alt="user" class="img-circle"> Genelia Deshmukh</a>
+                        </td>
+                        <td>ritesh@gmail.com</td>
+                        <td>How to change colors</td>
+                        <td><span class="label label-success">Complete</span> </td>
+                        <td>Salman khan</td>
+                        <td>13-10-2017</td>
+                        <td>
+                            <button class="btn btn-outline-warning btn-sm" type="button" data-toggle="tooltip" data-original-title="Editar"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" type="button" data-toggle="tooltip" data-original-title="Eliminar"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

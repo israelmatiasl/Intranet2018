@@ -1,0 +1,86 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<div class="scroll-sidebar">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav">
+        <ul id="sidebarnav">
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goHome()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Inicio</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/home']" routerLinkActive="active">Inicio </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goStudents()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Alumnos</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/alumnos']" routerLinkActive="active">Alumnos </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goTeachers()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Docentes</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/docentes']" routerLinkActive="active">Docentes </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goClass()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Clases</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/clases']" routerLinkActive="active">Clases </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goSections()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Secciones</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/secciones']" routerLinkActive="active">Secciones </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goRooms()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Salones</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/salones']" routerLinkActive="active">Salones </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goCourses()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Cursos</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/cursos']" routerLinkActive="active">Cursos </a></li>
+                </ul>
+            </li>
+            <li routerLinkActive="active">
+                <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="goNews()" aria-expanded="true">
+                    <i class="mdi mdi-gauge"></i>
+                    <span class="hide-menu">Noticias</span>
+                </a>
+                <ul aria-expanded="false" class="collapse" hidden="true">
+                    <li routerLinkActive="active"><a [routerLink]="['/admin/noticias']" routerLinkActive="active">Noticias </a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+</div>
+<!-- ============================================================== -->
+<!-- End Left Sidebar  -->
+<!-- ============================================================== -->

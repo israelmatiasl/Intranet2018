@@ -1,0 +1,130 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Listado de secciones por filtros</h2>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary waves-effect waves-light pull-right" (click)="goAddSection()" type="button">
+                <span class="btn-label"><i class="fa fa-plus"></i></span>Nueva sección
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info" *ngIf="!existsGrades">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+    <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Agregar grados y años</h3>
+    Es necesario tener estos datos para continuar sin interrupciones. Para agregar grados y años haga clic <a href="javascript:void(0)">aquí</a>
+</div>
+
+<div class="card card-outline-info" *ngIf="existsGrades">
+    <div class="card-header">
+        <h4 class="m-b-0 text-white">Búsqueda</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <!-- Column -->
+            <div *ngFor="let item of grades" class="col-lg-4 col-md-6">
+                <div class="card">
+                    <a href="javascript:void(0)" class="card-item" (click)="searchSections(item.name)">
+                        <div class="d-flex flex-row">
+                            <div class="p-10 bg-info">
+                                <h3 class="text-white box m-b-0"><i class="ti-wallet"></i></h3>
+                            </div>
+                            <div class="align-self-center m-l-20">
+                                <h3 class="m-b-0">{{item.name}}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    </div>
+</div>
+
+
+<div class="card card-inverse" *ngIf="sections">
+    <div class="card-header bg-info">
+        <h4 class="m-b-0 text-white">Secciones</h4>
+    </div>
+    <div class="card-body">
+
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Tipo de sección</label>
+                            <select [(ngModel)]="type" name="type" (change)="changesFilters($event.target.value, null, null)" class="form-control custom-select" required>
+                                <option value="">Seleccione un tipo de sección</option>
+                                <option value="REGULAR">REGULAR</option>
+                                <option value="VERANO">VERANO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Año escolar</label>
+                            <select [(ngModel)]="gradeyear" name="gradeyear" (change)="changesFilters(null, $event.target.value, null)" class="form-control custom-select" required>
+                                <option value="">Seleccione un año escolar</option>
+                                <option *ngFor="let item of gradeyears" [value]="item.name">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Año de la sección</label>
+                            <select [(ngModel)]="year" name="year" (change)="changesFilters(null, null, $event.target.value)" class="form-control custom-select" required>
+                                <option *ngFor="let item of years" [value]="item">{{item}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list footable-loaded footable">
+                <thead>
+                    <tr>
+                        <th class="footable-sortable">#<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Código<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Tipo<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Sección<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Libres<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Año<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Tutor<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">Action<span class="footable-sort-indicator"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of sections; let i = index" class="footable-even">
+                        <td><span class="footable-toggle"></span>{{(page-1)*items_page + (i+1)}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.grade_year}} - {{item.letter}}</td>
+                        <td>{{item.max - item.current}}</td>
+                        <td>{{item.year}}</td>
+                        <td>
+                            <span *ngIf="item.tutor">{{item.tutor.name}} {{item.tutor.psurname}}</span>
+                            <span *ngIf="!item.tutor">Tutor no asignado</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-warning btn-sm" type="button" [routerLink]="['/admin/seccion/editar', item._id]"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteSection(item._id)"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pull-right p-r-30">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button (click)="navigation(false, -1)" type="button" [disabled]="page<=1" class="btn waves-effect waves-light btn-inverse">Anterior</button>
+                    <button *ngFor="let i of total_pages|count" type="button" [disabled]="page == i" class="btn btn-secondary" (click)="navigation(true, i) ">{{i}}</button>
+                    <button (click)="navigation(false, 1)" type="button" [disabled]="total_pages<=page" class="btn waves-effect waves-light btn-inverse">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

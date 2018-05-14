@@ -1,0 +1,283 @@
+<div class="col-12 m-t-10 m-b-20">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="m-t-0">Adición de un nuevo docente</h2>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-warning waves-effect waves-light pull-right" (click)="goListTeacher()" type="button">
+                <span class="btn-label"><i class="fa fa-arrow-left"></i></span>Regresar al listado
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div [class]="formClass">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">{{titleForm}}</h4>
+            </div>
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="saveTeacher(form)" class="form-horizontal">
+                    <div class="form-body">
+                        <h3 class="box-title">Información del docente</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombres</label>
+                                    <input [(ngModel)]="teacher.name" name="name" type="text" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Apellido Paterno</label>
+                                    <input [(ngModel)]="teacher.psurname" name="psurname" type="text" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Apellido Materno</label>
+                                    <input [(ngModel)]="teacher.msurname" name="msurname" type="text" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Documento</label>
+                                    <input [(ngModel)]="teacher.document" name="document" type="text" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha Nacimiento</label>
+                                    <input [ngModel]="teacher.birthday | date:'yyyy-MM-dd'" name="birthday" type="date" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Género</label>
+                                    <select [(ngModel)]="teacher.gender" name="gender" [disabled]="isEdit || isSaved" class="form-control custom-select" required>
+                                        <option value="">Seleccione un género</option>
+                                        <option *ngFor="let item of genders" [value]="item">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input [(ngModel)]="teacher.phone" name="phone" type="text" [disabled]="isSaved || (isEdit && teacher.status != 'ACTIVE')" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input [(ngModel)]="teacher.cell_phone" name="cell_phone" type="text" [disabled]="isSaved || (isEdit && teacher.status != 'ACTIVE')" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input [(ngModel)]="teacher.email" name="email" type="email" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha de contratación</label>
+                                    <input [ngModel]="teacher.hire_date | date:'yyyy-MM-dd'" name="hire_date" type="date" [disabled]="isEdit || isSaved" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <textarea [(ngModel)]="teacher.address" name="address" [disabled]="isSaved || (isEdit && teacher.status != 'ACTIVE')" rows="2" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="box-title">Formación profesional</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Grado</label>
+                                    <select [(ngModel)]="teacher.grade" name="grade" class="form-control custom-select" [disabled]="isEdit || isSaved" required>
+                                        <option value="">Seleccione un grado</option>
+                                        <option *ngFor="let item of studiesgrade" [value]="item">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Carrera</label>
+                                    <input [(ngModel)]="teacher.career" name="career" type="text" [disabled]="isEdit || isSaved" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-12 col-md-12">
+                                        <div class="pull-left">
+                                            <button *ngIf="isSaved || isEdit" (click)="goAddTeacher()" type="button" class="btn btn-inverse">
+                                                <span class="btn-label"><i class="fa fa-plus"></i></span>Nuevo docente
+                                            </button>
+                                        </div>
+                                        <div *ngIf="(isEdit && teacher.status == 'ACTIVE') || (!isEdit && !isSaved)" class="pull-right">
+                                            <button *ngIf="!isSaved" type="submit" class="btn btn-inverse" [disabled]="loading || form.invalid">
+                                                <i class="fa" [ngClass]="{'fa-save':!loading, 'fa-refresh fa-spin':loading }"></i>
+                                                <span *ngIf="!loading">&nbsp;{{textSave}}</span>
+                                                <span *ngIf="loading">&nbsp;Espere por favor</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3" *ngIf="(!isEdit && isSaved) || isEdit">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white">Imagen del docente</h4>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="(teacher.status == 'ACTIVE')" class="form-group">
+                            <input type="file" class="form-control" aria-describedby="fileHelp">
+                        </div>
+                        <div>
+                            <div class="el-card-avatar el-overlay-1">
+                                <img [src]="teacher.image | image : teacher.gender : 'USER_TEACHER'" class="card-image">
+                            </div>
+                            <hr>
+                            <div *ngIf="(teacher.status == 'ACTIVE')" class="el-card-content">
+                                <button type="button" class="btn waves-effect waves-light btn-block btn-inverse">{{textUpdateImage}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="isEdit">
+            <div class="col-md-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white">Acciones</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h5 class="box-title">Estado : <span style="font-size: 15px" class="badge" [ngClass]="{'badge-success': teacher.status == 'ACTIVE', 
+                                                                         'badge-warning': teacher.status == 'INACTIVE',
+                                                                         'badge-danger': teacher.status == 'DELETED'}">
+                                {{teacher.status | status | uppercase}}
+                                </span>
+                            </h5>
+                        </div>
+                        <div *ngIf="teacher.status != 'DELETED'" class="form-group">
+                            <div class="m-b-10 bd-example-indeterminate">
+                                <label class="custom-control custom-checkbox">
+                                    <input [(ngModel)]="isReadyToAction" name="ready" type="checkbox" value="false" class="custom-control-input">
+                                    <span class="custom-control-label">No soy un robot</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div *ngIf="teacher.status != 'DELETED'" class="form-group">
+                            <button *ngIf="teacher.status == 'INACTIVE'" type="button" class="btn btn-block btn-success" [disabled]="!isReadyToAction" (click)="updateStatus()">HABILITAR</button>
+                            <button *ngIf="teacher.status == 'ACTIVE'" type="button" class="btn btn-block btn-warning" [disabled]="!isReadyToAction" (click)="updateStatus()">DESHABILITAR</button>
+                            <button type="button" class="btn btn-block btn-danger" [disabled]="!isReadyToAction" (click)="deleteTeacher()">ELIMINAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="(!isEdit && isSaved) || isEdit">
+    <div *ngIf="(teacher.status == 'ACTIVE')">
+        <div *ngIf="coursesForm" class="row">
+            <div class="col-md-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white">Cursos a dictar</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm" (ngSubmit)="saveCourses(form)" class="form-horizontal">
+                            <div class="form-body">
+                                <div *ngFor="let i of totalcourses | count" class="row m-t-10">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Grado</label>
+                                            <select [(ngModel)]="gradesSelected[i-1]" [name]="'grade'+i" (change)="getGradeYears($event.target.value, i-1)" class="form-control custom-select" required>
+                                                <option value="">Seleccione un grado</option>
+                                                <option *ngFor="let item of grades" [value]="item.name">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Año escolar</label>
+                                            <select [(ngModel)]="gradesyearsSelected[i-1]" [name]="'gradeyear'+i" (change)="getCourses($event.target.value, i-1)" class="form-control custom-select" [disabled]="gradesSelected[i-1]==''" required>
+                                                <option value="">Seleccione un año escolar</option>
+                                                <option *ngFor="let item of gradeyears[i-1]" [value]="item.name">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Curso</label>
+                                            <select [(ngModel)]="coursesSelected[i-1]" [name]="'course'+i" class="form-control custom-select" [disabled]="gradesyearsSelected[i-1]==''" required>
+                                                <option value="">Seleccione un curso</option>
+                                                <option *ngFor="let item of courses[i-1]" [value]="item.name">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="m-t-15p pull-right">
+                                            <button *ngIf="i==totalcourses" type="button" class="btn btn-inverse" [disabled]="!coursesSelected[i-1] || coursesSelected[i-1]==''" (click)="addCourse()">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                            <button *ngIf="i==totalcourses" type="button" class="btn btn-danger" [disabled]="totalcourses==1" (click)="removeCourse()">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-offset-12 col-md-12">
+                                                <div class="pull-right">
+                                                    <button type="submit" [disabled]="form.invalid" class="btn btn-inverse">Agregar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
